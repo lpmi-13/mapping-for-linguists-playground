@@ -1,0 +1,39 @@
+kind: playground
+title: An R Mapping Tutorial for Linguistics
+description: Follow along with an exciting ggplot2 tutorial to map out some cool linguistic stuff!
+categories:
+    - programming
+playground:
+    access:
+        mode: public
+    machines:
+        - name: docker-01
+          users:
+            - name: root
+            - name: laborant
+              default: true
+          resources:
+            cpuCount: 4
+            ramSize: 8G
+    tabs:
+        - id: terminal-docker-01
+          kind: terminal
+          name: Term
+          machine: docker-01
+        - id: http-port-zfpla3dflnb
+          kind: http-port
+          name: RStudio
+          machine: docker-01
+          number: 8787
+    initTasks:
+        setup_repo:
+            name: setup_repo
+            machine: docker-01
+            init: true
+            user: laborant
+            timeout_seconds: 300
+            run: |-
+                #!/bin/bash
+
+                docker run -d -p 8787:8787 -e PASSWORD=mappingForLinguists ghcr.io/lpmi-13/mapping-for-linguists
+    initConditions: {}
